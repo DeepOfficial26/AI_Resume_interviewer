@@ -459,6 +459,49 @@ npm test
 npm run test:watch
 ```
 
+## 🔥 Firebase Deployment (Frontend)
+
+**Full steps:** see **[DEPLOY.md](./DEPLOY.md)** for the complete deployment guide.
+
+The **Angular frontend** can be deployed to **Firebase Hosting**. The Node.js backend and MongoDB must be hosted separately (e.g. Cloud Run, Railway, Render).
+
+### One-time setup
+
+1. **Install Firebase CLI**
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. **Log in and create/link a project**
+   ```bash
+   firebase login
+   firebase projects:create
+   # or use existing: firebase use your-existing-project-id
+   ```
+
+3. **Set your Firebase project in this repo**
+   - Open `.firebaserc` and replace `your-firebase-project-id` with your project ID, **or**
+   - Run: `firebase use your-firebase-project-id`
+
+4. **Set production API URL**
+   - Edit `frontend/src/environments/environment.prod.ts` and set `apiUrl` to your deployed backend URL (e.g. `https://your-api.example.com`).
+
+### Deploy
+
+From the project root:
+
+```bash
+# Build Angular (production) and deploy to Firebase Hosting
+npm run deploy
+# or step by step:
+npm run build:frontend
+firebase deploy
+```
+
+Your app will be available at `https://<your-project-id>.web.app` (or your custom domain if configured in Firebase).
+
+---
+
 ## 🐳 Docker Deployment
 
 ```dockerfile
